@@ -18,14 +18,14 @@ body {
 
 #main {
   background-image: url(img/bg.jpg);
-  width: 650px;
-  height: 550px;
+  width: 1170px;
+  height: 800px;
   position: relative;
   padding-top: 50px;
 }
 
 .element.custom {
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
 }
 
@@ -146,10 +146,7 @@ body {
     -moz-border-radius: 5px;
     border-radius: 5px;
   }
-  .element .list li[data-group] { border-left: 3px solid #ddd; }
-  .element .list li[data-group="friends"] { border-left-color: #bdcb7f; }
-  .element .list li[data-group="work"] { border-left-color: #9cc9cb; }
-  .element .list li[data-group="family"] { border-left-color: #fba59d; }
+
   .element .list li {
     background: #f0f0f0;
     background: -moz-linear-gradient(top,  #f0f0f0 1%, #eeeeee 100%);
@@ -165,29 +162,36 @@ body {
   }
   .element .list li:first-child { border-top: 0; }
   .element .list li a{
-    display: block;
-    padding: 8px ;
+    display: inline-block;
+    width: 100%;
+    padding: 5px ;
     color: #727272;
     font-size: 13px;
     font-weight: bold;
     text-decoration: none;
     text-shadow: 0 1px 0 #fff;
+    vertical-align: middle;
   }
   .element .list li a:hover{ 
     background: #f5f5f5;
     color: #555; 
   }
-  .element .list li a span{
-    display: block;
-    color: #b5b5b5;
-    font-size: 11px;
-    font-weight: normal;
-    text-decoration: none;
-  }
-  .element .list li .add-new{
+
+  .element .list li #add-new{
     display: block;
     color: #787878;
     font-size: 12px;
     font-weight: normal;
     text-align: center;
+  }
+  
+  .contactPic{
+      width: 50px;
+      border-radius: 100%;
+      display: inline-block;
+      vertical-align: middle;
+  }
+  
+  .name{
+      padding-left: 2%;
   }

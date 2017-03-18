@@ -1,6 +1,15 @@
 <?php
-    include_once 'dbconnect.php';
-    
+include_once 'dbconnect.php';
+
+$query = "SELECT ContactName, Picture FROM contacts";
+$result = mysqli_query($connect, $query);
+$arr = array();
+
+$index = 0;
+while ($row = mysqli_fetch_array($result)) {
+    $arr[$index] = $row;
+    $index++;
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,48 +26,33 @@
             <div class="element custom">
 
                 <div class="element-header">
-                    <input id="search" type="text" name="s" value="" placeholder="search" autocomplete="off">
                     <h2>My contacts</h2>
                 </div>
 
                 <div class="element-content">
-
                     <ul class="list">
-                        <?php
-                        ?>
-<!--                        <li id="index-A" data-group="work">
-                            <a href="#">Amy Laudrie<span>amylaudrie@gmail.com</span></a>
-                        </li>
-                        <li data-group="family">
-                            <a href="#">April Meiny<span>aprilmeiny@mail.com</span></a>
-                        </li>
-                        <li id="index-B" data-group="work">
-                            <a href="#">Benny Iridos<span>benyiridos@mail.com</span></a>
-                        </li>
-                        <li data-group="work">
-                            <a href="#">Bill Doe<span>benyiridos@mail.com</span></a>
-                        </li>
-                        <li id="index-C" data-group="friends">
-                            <a href="#">Clark Graver<span>clarkgraver@mail.com</span></a>
-                        </li>
-                        <li id="index-D" data-group="friends">
-                            <a href="#">Danny Perie<span>dannyperie@mail.com</span></a>
-                        </li>
-                        <li id="index-J" data-group="family">
-                            <a href="#">John Doe <span>johndoe@mail.com</span></a>
-                        </li>
-                        <li id="index-L" data-group="work">
-                            <a href="#">Lucy Fer<span>lucyfer@mail.com</span></a>
-                        </li>
-                        <li id="index-M" data-group="work">
-                            <a href="#">Megan Rize<span>meganrize@mail.com</span></a>
-                        </li>
-                        <li data-group="friends">
-                            <a href="#">Mike Ferg<span>mikeferg@mail.com</span></a>
-                        </li>
+<?php
+foreach ($arr as $name) {
+    echo "<li><a href='#'><img src='$name[1]' class='contactPic'><span class='name'>$name[0]</span></a></li>";
+}
+?>
+                    <!--                        <li id="index-A" data-group="work">
+                                                <a href="#">Amy Laudrie<span>amylaudrie@gmail.com</span></a>
+                                                </li>
+                                                <li data-group="family">
+                                                    <a href="#">April Meiny<span>aprilmeiny@mail.com</span></a>
+                                                </li>
+                                                <li id="index-B" data-group="work">
+                                                    <a href="#">Benny Iridos<span>benyiridos@mail.com</span></a>
+                                                </li>
+                                                <li data-group="work">
+                                                    <a href="#">Bill Doe<span>benyiridos@mail.com</span></a>
+                                                </li>
+                                                
+                        -->                                                
                         <li>
-                            <a href="./add-new.php" class="add-new">+ Add new contact</a>
-                        </li>-->
+                            <a href="./add-new.php" id="add-new">+ Add new contact</a>
+                        </li>
                     </ul>
 
                     <div class="element-sidebar">
