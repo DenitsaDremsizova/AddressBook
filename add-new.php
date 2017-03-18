@@ -40,11 +40,10 @@ if (isset($_POST['save'])) {
     } else {
         $picName = 'default.jpg';
     }
-    
+
     if (!empty($name) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !$error) {
         $query = "INSERT INTO contacts VALUES(null,'$name','$phone','$email','$address','./pics/$picName')";
         mysqli_query($connect, $query);
-        
     }
 }
 ?>
@@ -52,30 +51,44 @@ if (isset($_POST['save'])) {
 <html>
     <head>
         <title>Add New Contact</title>
+        <link href="assets/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <form enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" method="post">
-            <fieldset>
-                <legend>Add New Contact</legend>
-                <label for="name">Name: </label>
-                <input type="text" id="name" name="name" value="<?= $name ?>">
-                </br></br>
-                <label for="email">E-mail: </label>
-                <input type="email" id="email" name="email" value="<?= $email ?>">
-                </br></br>
-                <label for="phone">Phone: </label>
-                <input type="text" id="phone" name="phone" value="<?= $phone ?>">
-                </br></br>
-                <label for="address">Address: </label>
-                <input type="text" id="address" name="address" value="<?= $address ?>">
-                </br></br>
-                <input type="hidden" name="MAX_FILE_SIZE" value="8000000">
-                <label for="contactPic"> Picture: </label>
-                <input type="file" accept="img/*" name="contactPic" id="contactPic">
-                </br></br>
-                <input type="submit" name="save" value="Save">
-            </fieldset>
-        </form>
+        <div class="wrapper">
+            <form enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" id="new-contact-form">
+                <div class="element-header">
+                    <h2>Add New Contact</h2>
+                </div>
+                <fieldset class="new-contact-field">
+                    <label for="name">Name: </label></br>
+                    <input type="text" id="name" name="name" value="<?= $name ?>" class="new-contact-input">
+                    </br>
+                </fieldset>
+                <fieldset class="new-contact-field">
+                    <label for="email">E-mail: </label></br>
+                    <input type="email" id="email" name="email" value="<?= $email ?>" class="new-contact-input">
+                    </br>
+                </fieldset>
+                <fieldset class="new-contact-field">
+                    <label for="phone">Phone: </label></br>
+                    <input type="text" id="phone" name="phone" value="<?= $phone ?>" class="new-contact-input">
+                    </br>
+                </fieldset>
+                <fieldset class="new-contact-field">
+                    <label for="address">Address: </label> </br>
+                    <input type="text" id="address" name="address" value="<?= $address ?>" class="new-contact-input">
+                    </br>
+                </fieldset>
+                <fieldset class="new-contact-field">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="8000000">
+                    <label for="contactPic"> Picture: </label></br></br>
+                    <input type="file" accept="img/*" name="contactPic" id="contactPic" class="inputfile">
+                    </br>
+                </fieldset>
+                
+                <input type="submit" name="save" value="Save" id="new-contact-save-button">
+            </form>
+        </div>
     </body>
 </html>
 
