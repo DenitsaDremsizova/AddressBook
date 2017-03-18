@@ -139,7 +139,7 @@ body {
 .element .list li:first-child { border-top: 0; }
 .element .list li a{
     display: inline-block;
-    width: 100%;
+    width: 94%;
     padding: 5px ;
     color: #727272;
     font-size: 13px;
@@ -148,8 +148,13 @@ body {
     text-shadow: 0 1px 0 #fff;
     vertical-align: middle;
 }
-.element .list li a:hover{ 
+
+.element .list li:hover{ 
     background: #ccccff;
+    color: #0066cc; 
+}
+
+.element .list li a:hover{ 
     color: #0066cc; 
 }
 
@@ -236,4 +241,18 @@ input[type='file'] {
     -moz-border-radius: 3px;
     border-radius: 3px;
     margin-top: 3%;
+}
+
+.delete-button{
+    width: 3.5%;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0.5%;
+    vertical-align: text-top;
+}
+
+.delete-button:hover{
+    width: 4.5%;
+    cursor: pointer;
 }
