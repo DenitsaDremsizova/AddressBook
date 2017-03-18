@@ -17,18 +17,36 @@ if (isset($_POST['save'])) {
     $address = str_replace("'", "''", htmlentities(trim($_POST['address'])));
 
     $query = "SELECT email FROM contacts WHERE email='$email'";
-    $result = mysqli_query($connect, $query);
-    $count = mysqli_num_rows($result);
+    $checkEmail = mysqli_query($connect, $query);
+    $countcheckEmail = mysqli_num_rows($checkEmail);
+    
+    $query = "SELECT ContactName FROM contacts WHERE ContactName='$name'";
+    $checkName = mysqli_query($connect, $query);
+    $countcheckName = mysqli_num_rows($checkName);
 
     $error = false;
-    if ($count != 0) {
+    if ($countcheckEmail != 0) {
         $error = true;
+        $invalidInputMsg = "E-mail already added to Contact List";
     }
+    
+    if ($countcheckName != 0) {
+        $error = true;
+        $invalidInputMsg = "Name already added to Contact List";
+    }
+    
+    $query = "SELECT MAX(Id) FROM contacts";
+    $id = mysqli_query($connect, $query);
+    $id = mysqli_fetch_array($id, MYSQLI_NUM);
+    $id = implode("", $id)+1;
 
     //upload picture:
     if (isset($_FILES['contactPic'])) {
         $uploadedPicName = $_FILES['contactPic']['tmp_name'];
-        $picName = $_FILES['contactPic']['name'];
+        $picOriginalName = $_FILES['contactPic']['name'];
+        $picOriginalName = explode(".", $picOriginalName);
+        $extension = end($picOriginalName);
+        $picName = "$id.$extension";
 
         if (is_uploaded_file($uploadedPicName)) {
             if (move_uploaded_file($uploadedPicName, 'pics/' . $picName)) {
@@ -43,12 +61,16 @@ if (isset($_POST['save'])) {
         $picName = 'default.jpg';
     }
 
-    if (!empty($name) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !$error) {
-        $query = "INSERT INTO contacts VALUES(null,'$name','$phone','$email','$address','./pics/$picName')";
-        mysqli_query($connect, $query);
+    if (!empty($name) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !$error) {        
+        $query = "INSERT INTO contacts VALUES($id,'$name','$phone','$email','$address','./pics/$picName')";
+        if(mysqli_query($connect, $query)){
+        header('Location:./index.php');
+        } else {
+            $invalidInputMsg = "Failed to add contact. Please try again!";
+        }
     }
     
-    header('Location:./index.php');
+    
 } else{
     $invalidInputMsg = 'Name and E-mail are required fields';
 }
@@ -97,7 +119,7 @@ if (isset($_POST['save'])) {
             </form>
             <a href="./index.php" id="back-to-home"> Back to My Contacts </a>
             <div id="error-msg">
-                <?php echo $invalidInputMsg;?>
+                <p><?php echo $invalidInputMsg;?></p>
             </div>
         </div>
     </body>

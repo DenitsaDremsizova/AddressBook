@@ -258,7 +258,15 @@ input[type='file'] {
     cursor: pointer;
 }
 
-error-msg{
-    color: red;
+#error-msg{
+    color: #c12222;
     font-weight: bold;
+    width: 25%;
+    line-height: 3em;
+    margin: 0 auto;
+}
+
+#error-msg p{
+    padding: 2.5%;
+    text-align: center;
 }
