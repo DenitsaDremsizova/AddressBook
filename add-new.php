@@ -7,12 +7,14 @@ $email = "";
 $address = "";
 $picName = "";
 
+$invalidInputMsg = "";
+
 if (isset($_POST['save'])) {
-    $name = htmlentities(trim($_POST['name']));
+    if(isset($_POST['name']) && isset($_POST['email'])){
+    $name = str_replace("'", "''", htmlentities(trim($_POST['name'])));
     $phone = htmlentities(trim($_POST['phone']));
     $email = htmlentities(trim($_POST['email']));
-    $address = htmlentities(trim($_POST['address']));
-    $address = str_replace("'", "''", $address);
+    $address = str_replace("'", "''", htmlentities(trim($_POST['address'])));
 
     $query = "SELECT email FROM contacts WHERE email='$email'";
     $result = mysqli_query($connect, $query);
@@ -47,6 +49,9 @@ if (isset($_POST['save'])) {
     }
     
     header('Location:./index.php');
+} else{
+    $invalidInputMsg = 'Name and E-mail are required fields';
+}
 }
 ?>
 
@@ -63,12 +68,12 @@ if (isset($_POST['save'])) {
                 </div>
                 <fieldset class="new-contact-field">
                     <label for="name">Name: </label></br>
-                    <input type="text" id="name" name="name" value="<?= $name ?>" class="new-contact-input">
+                    <input type="text" id="name" name="name" value="<?= $name ?>" class="new-contact-input" required>
                     </br>
                 </fieldset>
                 <fieldset class="new-contact-field">
                     <label for="email">E-mail: </label></br>
-                    <input type="email" id="email" name="email" value="<?= $email ?>" class="new-contact-input">
+                    <input type="email" id="email" name="email" value="<?= $email ?>" class="new-contact-input" required>
                     </br>
                 </fieldset>
                 <fieldset class="new-contact-field">
@@ -83,15 +88,17 @@ if (isset($_POST['save'])) {
                 </fieldset>
                 <fieldset class="new-contact-field">
                     <input type="hidden" name="MAX_FILE_SIZE" value="8000000">
-                    <label for="contactPic"> Picture: </label></br></br>
+                    <label for="contactPic"> Picture: </label></br>
                     <input type="file" accept="img/*" name="contactPic" id="contactPic" class="inputfile">
                     </br>
                 </fieldset>
                 
                 <input type="submit" name="save" value="Save" id="new-contact-save-button">
             </form>
-                                        <a href="./index.php" id="back-to-home"> Back to My Contacts </a>
-
+            <a href="./index.php" id="back-to-home"> Back to My Contacts </a>
+            <div id="error-msg">
+                <?php echo $invalidInputMsg;?>
+            </div>
         </div>
     </body>
 </html>
