@@ -45,6 +45,8 @@ if (isset($_POST['save'])) {
         $query = "INSERT INTO contacts VALUES(null,'$name','$phone','$email','$address','./pics/$picName')";
         mysqli_query($connect, $query);
     }
+    
+    header('Location:./index.php');
 }
 ?>
 
@@ -88,6 +90,8 @@ if (isset($_POST['save'])) {
                 
                 <input type="submit" name="save" value="Save" id="new-contact-save-button">
             </form>
+                                        <a href="./index.php" id="back-to-home"> Back to My Contacts </a>
+
         </div>
     </body>
 </html>
