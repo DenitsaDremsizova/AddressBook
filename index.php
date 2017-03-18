@@ -1,20 +1,22 @@
 <?php
 include_once 'dbconnect.php';
 
-$query = "SELECT ContactName, Picture FROM contacts";
+$query = "SELECT ContactName, Picture, SUBSTRING(ContactName, 1, 1) AS 'Letter' FROM contacts ORDER BY ContactName;";
 $result = mysqli_query($connect, $query);
 $arr = array();
 
 $index = 0;
-while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+while ($row = mysqli_fetch_array($result)) {
     $arr[$index] = $row;
-    $arr[$index] = implode("#", $arr[$index]);
     $index++;
 }
-sort($arr);
 
-for($index = 0; $index < count($arr); $index++){
-    $arr[$index] = explode("#", $arr[$index]);
+for($index=0; $index < count($arr); $index++){
+    if($index!=0 && $arr[$index]['Letter'] === $arr[$index-1]['Letter']){
+        $arr[$index]['FirstElementWithLetter'] = false;
+    } else {
+        $arr[$index]['FirstElementWithLetter'] = true;
+    }
 }
 
 ?>
@@ -38,61 +40,47 @@ for($index = 0; $index < count($arr); $index++){
 
                 <div class="element-content">
                     <ul class="list">
-<?php
-foreach ($arr as $contact) {
-    echo "<li><a href='#'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a></li>";
-}
-?>
-                    <!--                        <li id="index-A" data-group="work">
-                                                <a href="#">Amy Laudrie<span>amylaudrie@gmail.com</span></a>
-                                                </li>
-                                                <li data-group="family">
-                                                    <a href="#">April Meiny<span>aprilmeiny@mail.com</span></a>
-                                                </li>
-                                                <li id="index-B" data-group="work">
-                                                    <a href="#">Benny Iridos<span>benyiridos@mail.com</span></a>
-                                                </li>
-                                                <li data-group="work">
-                                                    <a href="#">Bill Doe<span>benyiridos@mail.com</span></a>
-                                                </li>
-                                                
-                        -->                                                
-                        <li>
-                            <a href="./add-new.php" id="add-new">+ Add new contact</a>
-                        </li>
-                    </ul>
+                        <?php
+                        foreach ($arr as $contact) {
+                            if($contact['FirstElementWithLetter']){
+                                echo "<li id='index-$contact[2]'><a href='#'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a></li>";
+                            } else {
+                            echo "<li><a href='#'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a></li>";
+                            }
+                        }
+                        ?>
 
-                    <div class="element-sidebar">
-                        <a href="#index-#">#</a>
-                        <a href="#index-A">A</a>
-                        <a href="#index-B">B</a>
-                        <a href="#index-C">C</a>
-                        <a href="#index-D">D</a>
-                        <a href="#index-E">E</a>
-                        <a href="#index-F">F</a>
-                        <a href="#index-G">G</a>
-                        <a href="#index-H">H</a>
-                        <a href="#index-I">I</a>
-                        <a href="#index-J">J</a>
-                        <a href="#index-K">K</a>
-                        <a href="#index-L">L</a>
-                        <a href="#index-M">M</a>
-                        <a href="#index-N">N</a>
-                        <a href="#index-O">O</a>
-                        <a href="#index-P">P</a>
-                        <a href="#index-Q">Q</a>
-                        <a href="#index-R">R</a>
-                        <a href="#index-S">S</a>
-                        <a href="#index-T">T</a>
-                        <a href="#index-U">U</a>
-                        <a href="#index-V">V</a>
-                        <a href="#index-W">W</a>
-                        <a href="#index-X">X</a>
-                        <a href="#index-Y">Y</a>
-                        <a href="#index-Z">Z</a>
-                    </div>
-
+                        <div class="element-sidebar">
+                            <a href="#index-#">#</a>
+                            <a href="#index-A">A</a>
+                            <a href="#index-B">B</a>
+                            <a href="#index-C">C</a>
+                            <a href="#index-D">D</a>
+                            <a href="#index-E">E</a>
+                            <a href="#index-F">F</a>
+                            <a href="#index-G">G</a>
+                            <a href="#index-H">H</a>
+                            <a href="#index-I">I</a>
+                            <a href="#index-J">J</a>
+                            <a href="#index-K">K</a>
+                            <a href="#index-L">L</a>
+                            <a href="#index-M">M</a>
+                            <a href="#index-N">N</a>
+                            <a href="#index-O">O</a>
+                            <a href="#index-P">P</a>
+                            <a href="#index-Q">Q</a>
+                            <a href="#index-R">R</a>
+                            <a href="#index-S">S</a>
+                            <a href="#index-T">T</a>
+                            <a href="#index-U">U</a>
+                            <a href="#index-V">V</a>
+                            <a href="#index-W">W</a>
+                            <a href="#index-X">X</a>
+                            <a href="#index-Y">Y</a>
+                            <a href="#index-Z">Z</a>
+                        </div>
                 </div>
+                <a href="./add-new.php" id="add-new">+ Add new contact</a>
 
             </div>
 

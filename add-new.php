@@ -12,6 +12,7 @@ if (isset($_POST['save'])) {
     $phone = htmlentities(trim($_POST['phone']));
     $email = htmlentities(trim($_POST['email']));
     $address = htmlentities(trim($_POST['address']));
+    $address = str_replace("'", "''", $address);
 
     $query = "SELECT email FROM contacts WHERE email='$email'";
     $result = mysqli_query($connect, $query);
