@@ -6,10 +6,17 @@ $result = mysqli_query($connect, $query);
 $arr = array();
 
 $index = 0;
-while ($row = mysqli_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
     $arr[$index] = $row;
+    $arr[$index] = implode("#", $arr[$index]);
     $index++;
 }
+sort($arr);
+
+for($index = 0; $index < count($arr); $index++){
+    $arr[$index] = explode("#", $arr[$index]);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +39,8 @@ while ($row = mysqli_fetch_array($result)) {
                 <div class="element-content">
                     <ul class="list">
 <?php
-foreach ($arr as $name) {
-    echo "<li><a href='#'><img src='$name[1]' class='contactPic'><span class='name'>$name[0]</span></a></li>";
+foreach ($arr as $contact) {
+    echo "<li><a href='#'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a></li>";
 }
 ?>
                     <!--                        <li id="index-A" data-group="work">
