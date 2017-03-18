@@ -30,7 +30,7 @@ if (isset($_POST['save'])) {
 
         if (is_uploaded_file($uploadedPicName)) {
             if (move_uploaded_file($uploadedPicName, 'pics/' . $picName)) {
-                echo 'Picture Successfully uploaded';
+                
             } else {
                 $picName = 'default.jpg';
             }

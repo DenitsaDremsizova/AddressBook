@@ -214,15 +214,14 @@ body {
     padding: 1%;
     border: none;
     background-color: #8494a8;
-    color: #d8d8d8;
-    font-weight: bold;
+    color: white;
+    font-size: 1.25em;
 }
 
 #new-contact-save-button:hover{
     background-color: #4770a3;
     color: white;
     cursor: pointer;
-    border: 1px solid #4770a3;
 }
 
 input[type='file'] {
@@ -233,7 +232,6 @@ input[type='file'] {
     display: block;
     width: 100%;
     border: 1px solid #d4d4d4;
-/*    padding: 1%;*/
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
