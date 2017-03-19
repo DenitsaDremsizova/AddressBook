@@ -242,6 +242,7 @@ input[type='file'] {
     -moz-border-radius: 3px;
     border-radius: 3px;
     margin-top: 3%;
+    padding: 3%;
 }
 
 .delete-button{
@@ -401,6 +402,26 @@ li.address{
     padding: 0px 0px 12px 40px;
 }
 
+li.edit a{
+    text-decoration: none;
+    color: #565656;
+    font-size: 0.90em;
+}
+
+li.edit{
+    background: url("../images/edit-icon.png") no-repeat;
+    background-size:15px;
+    background-position: 13px 10px;
+    padding: 0px 0px 12px 40px;       
+    padding-top: 1%;
+}
+
+li.edit a:hover{
+    color: #4173b1;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 h2.top	{
     margin: 0px; 
     font-size: 22px;
@@ -451,7 +472,9 @@ h2	{
 }
 .form-style-6 input[type="text"]:focus,
 .form-style-6 input[type="email"]:focus,
-.form-style-6 textarea:focus
+.form-style-6 textarea:focus,
+.new-contact-field input[type="text"]:focus,
+.new-contact-field input[type="email"]:focus
 {
     box-shadow: 0 0 5px #4173b1;
     padding: 3%;
@@ -497,4 +520,7 @@ h2	{
 
 .hidden{
     display: none;
+}
+
+.info_1 li, .info_2 li {
 }

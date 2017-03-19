@@ -1,11 +1,18 @@
 <?php
 include_once 'dbconnect.php';
 
-$name = "";
-$phone = "";
-$email = "";
-$address = "";
-$picName = "";
+if(isset($_GET['contact_id'])){
+    $id = $_GET['contact_id'];		
+
+
+$query = "SELECT * FROM contacts WHERE Id=$id";
+$result = mysqli_query($connect, $query);
+$row = mysqli_fetch_array($result);
+        
+$name = $row['ContactName'];
+$phone = $row['Phone'];
+$email = $row['Email'];
+$address = $row['Address'];
 
 $invalidInputMsg = "";
 
@@ -16,60 +23,31 @@ if (isset($_POST['save'])) {
     $email = htmlentities(trim($_POST['email']));
     $address = str_replace("'", "''", htmlentities(trim($_POST['address'])));
 
-    if($phone === "") {
-        $phone = NULL;
-    }
-    $query = "SELECT email FROM contacts WHERE email='$email'";
+    $query = "SELECT email FROM contacts WHERE email=$email";
     $checkEmail = mysqli_query($connect, $query);
     $countcheckEmail = mysqli_num_rows($checkEmail);
     
-    $query = "SELECT ContactName FROM contacts WHERE ContactName='$name'";
+    $query = "SELECT ContactName FROM contacts WHERE ContactName=$name";
     $checkName = mysqli_query($connect, $query);
     $countcheckName = mysqli_num_rows($checkName);
 
     $error = false;
-    if ($countcheckEmail != 0) {
+    if(!(($countcheckEmail == 1 && $email = $row['Email']) || ($countcheckEmail == 0))){
         $error = true;
         $invalidInputMsg = "E-mail already added to Contact List";
     }
     
-    if ($countcheckName != 0) {
+    if(!(($countcheckName == 1 && $name = $row['ContactName']) || ($countcheckName == 0))){
         $error = true;
         $invalidInputMsg = "Name already added to Contact List";
     }
-    
-    $query = "SELECT MAX(Id) FROM contacts";
-    $id = mysqli_query($connect, $query);
-    $id = mysqli_fetch_array($id, MYSQLI_NUM);
-    $id = implode("", $id)+1;
-
-    //upload picture:
-    if (isset($_FILES['contactPic'])) {
-        $uploadedPicName = $_FILES['contactPic']['tmp_name'];
-        $picOriginalName = $_FILES['contactPic']['name'];
-        $picOriginalName = explode(".", $picOriginalName);
-        $extension = end($picOriginalName);
-        $picName = "$id.$extension";
-
-        if (is_uploaded_file($uploadedPicName)) {
-            if (move_uploaded_file($uploadedPicName, 'pics/' . $picName)) {
-                
-            } else {
-                $picName = 'default.jpg';
-            }
-        } else {
-            $picName = 'default.jpg';
-        }
-    } else {
-        $picName = 'default.jpg';
-    }
-
+ 
     if (!empty($name) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !$error) {        
-        $query = "INSERT INTO contacts VALUES($id,'$name', '$phone','$email','$address','./pics/$picName')";
+        $query = "UPDATE contacts SET ContactName = '$name', Phone = '$phone', Email = '$email', Address = '$address' WHERE Id=$id";
         if(mysqli_query($connect, $query)){
-        header('Location:./index.php');
+        header("Location:./profile.php?contact_id=$id");
         } else {
-            $invalidInputMsg = "Failed to add contact. Please try again!";
+            $invalidInputMsg = "Failed to edit contact. Please try again!";
         }
     }
     
@@ -78,21 +56,24 @@ if (isset($_POST['save'])) {
     $invalidInputMsg = 'Name and E-mail are required fields';
 }
 }
+} else {
+    echo "No contact was selected for editting";
+}
 ?>
 
 <html>
     <head>
-        <title>Add New Contact</title>
+        <title>Edit Contact</title>
         <link href="assets/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="wrapper">
-            <form enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" id="new-contact-form">
+            <form enctype="multipart/form-data" action="" method="post" id="new-contact-form">
                 <div class="element-header">
-                    <h2>Add New Contact</h2>
+                    <h2>Edit Contact</h2>
                 </div>
                 <fieldset class="new-contact-field">
-                    <label for="name">Name: </label></br>
+                    <label for="name" value="$name">Name: </label></br>
                     <input type="text" id="name" name="name" value="<?= $name ?>" class="new-contact-input" required>
                     </br>
                 </fieldset>

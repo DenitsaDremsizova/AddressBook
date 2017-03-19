@@ -10,7 +10,14 @@
 	$query = "SELECT * FROM contacts WHERE id=".$id;
 	$result = mysqli_query($connect, $query);
 	$row = mysqli_fetch_array($result);
-	
+
+        $showAddress = true;
+        $showPhone = true;
+        
+        if ($row['Address'] == '')
+            $showAddress = false;
+        if ($row['Phone'] == '')
+            $showPhone = false;
 	
 	if(isset($_POST['submit'])){
 		$to = 'kznikov@gmail.com';
@@ -48,12 +55,22 @@
                   <div class="header_2">
                    <a href="./"><button id="all_contacts">All Contacts</button></a>
                      <h1><span><?=$row['ContactName'] ?></span></h1>
-                     <ul class="info_1">
-                        <li class="address"><?=$row['Address'] ?></li>
-                     </ul>
+                     
+                         <?php
+                            if($showAddress){
+                                echo "<ul class='info_1'><li class='address'>$row[4]</li></ul>";
+                            }
+                         ?>
+                     
                      <ul class="info_2">
-                        <li class="phone"><?=$row['Phone'] ?></li>
-                        <li class="email"><?=$row['Email'] ?></a></li>
+                         <?php
+                            if($showPhone){
+                                echo "<li class='phone'>$row[2]</li>";
+                            }
+                         ?>
+                        
+                        <li class="email"><?=$row['Email'] ?></li>
+                        <li class="edit"><a href="./edit-contact.php?contact_id=<?= $id ?>">Edit Contact Details</a></li>
                      </ul>
             
                   </div>
