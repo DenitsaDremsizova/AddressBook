@@ -489,3 +489,8 @@ h2	{
     background: #0066d5;
 }
 
+#success_msg{
+	margin-top:10px;
+	margin-bottom: 0px;
+	color:white;
+}
