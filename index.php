@@ -46,7 +46,6 @@ for($index=0; $index < count($arr); $index++){
                     <ul class="list">
                         <?php
                         foreach ($arr as $contact) {
-                            if($contact['FirstElementWithLetter']){
                                 echo "<li id='index-$contact[3]' class='li-$contact[0]'>"
                                         . "<a href='./profile.php?contact_id=$contact[0]'>"
                                         . "<img src='$contact[2]' class='contactPic'>"
@@ -54,16 +53,6 @@ for($index=0; $index < count($arr); $index++){
                                         . "</a>"
                                         . "<img src='./assets/images/delete-button.png' class='delete-button' id='$contact[0]'>"
                                         . "</li>";
-                            } else {
-                            echo "<li class='li-$contact[0]'>"
-                                . "<a href='./profile.php?contact_id=$contact[0]'>"
-                                    . "<img src='$contact[2]' class='contactPic'>"
-                                    . "<span class='name'>$contact[1]</span>"
-                                    . "</a>"
-                                    . "<img src='./assets/images/delete-button.png' class='delete-button' id='$contact[0]'>"
-                                    . "</li>";
-                                
-                            }
                         }
                         ?>
                         <div class="element-sidebar">
