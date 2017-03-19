@@ -1,7 +1,8 @@
 <?php
 include_once 'dbconnect.php';
 
-$query = "SELECT ContactName, Picture, SUBSTRING(ContactName, 1, 1) AS 'Letter' FROM contacts ORDER BY ContactName;";
+
+$query = "SELECT id, ContactName, Picture, SUBSTRING(ContactName, 1, 1) AS 'Letter' FROM contacts ORDER BY ContactName;";
 $result = mysqli_query($connect, $query);
 $arr = array();
 
@@ -43,13 +44,13 @@ for($index=0; $index < count($arr); $index++){
                         <?php
                         foreach ($arr as $contact) {
                             if($contact['FirstElementWithLetter']){
-                                echo "<li id='index-$contact[2]'><a href='#'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
+                                echo "<li id='index-$contact[2]'><a href='./profile.php?contact_id=$contact[0]'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
                             } else {
-                            echo "<li><a href='#'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
+                            echo "<li><a href='./profile.php?contact_id=$contact[0]'><img src='$contact[1]' class='contactPic'><span class='name'>$contact[0]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
+                                
                             }
                         }
                         ?>
-
                         <div class="element-sidebar">
                             <a href="#index-#">#</a>
                             <a href="#index-A">A</a>
