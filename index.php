@@ -29,6 +29,9 @@ for($index=0; $index < count($arr); $index++){
         <meta charset="UTF-8">
         <title>Address Book</title>
         <link href="assets/css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        
+
     </head>
     <body>
         <div id="main" role="main">
@@ -44,9 +47,21 @@ for($index=0; $index < count($arr); $index++){
                         <?php
                         foreach ($arr as $contact) {
                             if($contact['FirstElementWithLetter']){
-                                echo "<li id='index-$contact[3]'><a href='./profile.php?contact_id=$contact[0]'><img src='$contact[2]' class='contactPic'><span class='name'>$contact[1]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
+                                echo "<li id='index-$contact[3]' class='li-$contact[0]'>"
+                                        . "<a href='./profile.php?contact_id=$contact[0]'>"
+                                        . "<img src='$contact[2]' class='contactPic'>"
+                                        . "<span class='name'>$contact[1]</span>"
+                                        . "</a>"
+                                        . "<img src='./assets/images/delete-button.png' class='delete-button' id='$contact[0]'>"
+                                        . "</li>";
                             } else {
-                            echo "<li><a href='./profile.php?contact_id=$contact[0]'><img src='$contact[2]' class='contactPic'><span class='name'>$contact[1]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
+                            echo "<li class='li-$contact[0]'>"
+                                . "<a href='./profile.php?contact_id=$contact[0]'>"
+                                    . "<img src='$contact[2]' class='contactPic'>"
+                                    . "<span class='name'>$contact[1]</span>"
+                                    . "</a>"
+                                    . "<img src='./assets/images/delete-button.png' class='delete-button' id='$contact[0]'>"
+                                    . "</li>";
                                 
                             }
                         }
@@ -86,7 +101,10 @@ for($index=0; $index < count($arr); $index++){
             </div>
 
         </div>​
+
         <script src="assets/js/javascript.js" type="text/javascript"></script>
+        <script src="assets/js/delete-button.js" type="text/javascript"></script>
+
     </body>
 </html>
 
