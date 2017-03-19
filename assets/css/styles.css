@@ -139,7 +139,7 @@ body {
 .element .list li:first-child { border-top: 0; }
 .element .list li a{
     display: inline-block;
-    width: 94%;
+    width: 92%;
     padding: 5px ;
     color: #727272;
     font-size: 13px;
@@ -493,4 +493,8 @@ h2	{
 	margin-top:10px;
 	margin-bottom: 0px;
 	color:white;
+}
+
+.hidden{
+    display: none;
 }

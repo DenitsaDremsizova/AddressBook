@@ -1,7 +1,28 @@
 <?php
 include_once 'dbconnect.php';
 
+//*****DELETING*******
+$deleteId = 0;
 
+if(isset($_POST['deleteId'])){
+    $deleteId = $_POST['deleteId'];
+}
+
+if($deleteId > 0) {
+    //delete picture from server
+    $query = "SELECT Picture FROM contacts WHERE Id=$deleteId";
+    $pathToFile = mysqli_query($connect, $query);
+    $pathToFile = mysqli_fetch_array($pathToFile, MYSQLI_NUM);
+    $pathToFile = implode("", $pathToFile);
+    if($pathToFile !== './pics/default.jpg') {
+        unlink($pathToFile);
+    } 
+    //delete record from DB
+    $query = "DELETE FROM contacts WHERE Id=$deleteId";
+    mysqli_query($connect, $query);    
+}
+
+//*****READING*******
 $query = "SELECT id, ContactName, Picture, SUBSTRING(ContactName, 1, 1) AS 'Letter' FROM contacts ORDER BY ContactName;";
 $result = mysqli_query($connect, $query);
 $arr = array();
@@ -52,9 +73,13 @@ for($index=0; $index < count($arr); $index++){
                                         . "<span class='name'>$contact[1]</span>"
                                         . "</a>"
                                         . "<img src='./assets/images/delete-button.png' class='delete-button' id='$contact[0]'>"
+                                        . "<form id='deletion-form-$contact[0]' class='hidden' action='' method='post'>"
+                                        . "<input type='hidden' name='deleteId' value='$contact[0]'>"
+                                        . "</form>"
                                         . "</li>";
                         }
                         ?>
+
                         <div class="element-sidebar">
                             <a href="#index-#">#</a>
                             <a href="#index-A">A</a>

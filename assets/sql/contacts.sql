@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2017 at 08:37 PM
+-- Generation Time: Mar 19, 2017 at 06:17 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.9
 
@@ -59,7 +59,10 @@ INSERT INTO `contacts` (`Id`, `ContactName`, `Phone`, `Email`, `Address`, `Pictu
 (17, 'Goofy', '0881 378 209', 'goofy@weirdcreatures.com', 'Goofy''s House, Mickey''s Toontown, Disneyland', './pics/17.png'),
 (18, 'Bambi', '0843 567 400', 'bambi@cutethings.com', 'Where Deers Live, Disneyland', './pics/18.jpg'),
 (19, 'Donald Duck', '0843 783 009', 'donald-duck@coolbirds.com', 'Donald Duck''s House, Mickey''s Toontown, Disneyland', './pics/19.jpg'),
-(20, 'Dennie', '0998 671 567', 'deni4ka_d@yahoo.com', 'Lulin, Sofia', './pics/default.jpg');
+(20, 'Dennie', '0998 671 567', 'deni4ka_d@yahoo.com', 'Lulin, Sofia', './pics/default.jpg'),
+(21, 'Test 1', '', 'test_1@test.com', '', './pics/21.png'),
+(22, 'Test 2', '', 'test_2@test.com', '', './pics/22.jpeg'),
+(23, 'Test 3', '', 'test_3@sth.com', '', './pics/default.jpg');
 
 --
 -- Indexes for dumped tables
