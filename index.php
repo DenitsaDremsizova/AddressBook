@@ -44,9 +44,10 @@ for($index=0; $index < count($arr); $index++){
                         <?php
                         foreach ($arr as $contact) {
                             if($contact['FirstElementWithLetter']){
-                                echo "<li id='index-$contact[3]'><a href='./profile.php?contact_id=".$contact[0]."'><img src='$contact[2]' class='contactPic'><span class='name'>$contact[1]</span></a></li>";
+                                echo "<li id='index-$contact[3]'><a href='./profile.php?contact_id=$contact[0]'><img src='$contact[2]' class='contactPic'><span class='name'>$contact[1]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
                             } else {
-                            echo "<li><a href='./profile.php?contact_id=".$contact[0]."'><img src='$contact[2]' class='contactPic'><span class='name'>$contact[1]</span></a></li>";
+                            echo "<li><a href='./profile.php?contact_id=$contact[0]'><img src='$contact[2]' class='contactPic'><span class='name'>$contact[1]</span></a><img src='./assets/images/delete-button.png' class='delete-button'></li>";
+                                
                             }
                         }
                         ?>
